@@ -11,8 +11,7 @@ func _ready() -> void:
 	body_entered.connect(on_body_entered)
 	
 	await get_tree().create_timer(0.01).timeout
-	id = $"..".idAAAA
-	print(id)
+	id = $"..".id
 
 
 

@@ -6,6 +6,7 @@ const LEVEL_1 = preload("uid://brujanmimtvi7")
 
 @onready var player_list: VBoxContainer = %VBoxContainer
 @onready var button_start_server: Button = $ButtonStartServer
+@onready var label_join_code: RichTextLabel = $LabelJoinCode
 
 var server_owned: bool = false
 
@@ -27,6 +28,9 @@ func _ready() -> void:
 	
 	if get_multiplayer_authority() == 1:
 		button_start_server.disabled = false
+	
+	
+	label_join_code.text = str("Join Code:\n", Network.tube_client.session_id)
 
 #@rpc("any_peer", "call_local")
 func add_player_name(username: String):

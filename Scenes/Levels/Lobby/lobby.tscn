@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dlxn38y6xmqhi" path="res://Scenes/Levels/lobby.gd" id="1_xwyih"]
 [ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="2_v5hfa"]
+[ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="3_v5hfa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
 font = ExtResource("2_v5hfa")
@@ -61,6 +62,20 @@ offset_bottom = 70.0
 grow_horizontal = 2
 text = "Lobby"
 label_settings = SubResource("LabelSettings_s1fef")
+
+[node name="LabelJoinCode" type="RichTextLabel" parent="." unique_id=1278445386]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 105.0
+offset_right = 1081.0
+offset_bottom = 411.0
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Join Code:
+######"
+horizontal_alignment = 1
+selection_enabled = true
 
 [node name="PlayersList" type="Panel" parent="." unique_id=309286491]
 unique_name_in_owner = true
@@ -123,6 +138,9 @@ offset_top = 545.0
 offset_right = 457.0
 offset_bottom = 582.0
 text = "Server Settings"
+
+[node name="VHSColorRect" parent="." unique_id=207397534 instance=ExtResource("3_v5hfa")]
+layout_mode = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1400397074]
 replication_config = SubResource("SceneReplicationConfig_jqpmk")

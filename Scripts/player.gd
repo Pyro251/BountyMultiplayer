@@ -98,8 +98,6 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("shoot") and !in_lobby:
 		shoot()
-	if Input.is_action_just_pressed("shoot") and in_lobby:
-		print(Global.username)
 	
 	
 	# Camera movement to mouse:
