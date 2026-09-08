@@ -24,7 +24,7 @@ func set_up_name_list():
 	multiplayer.peer_connected.connect(add_session)
 	multiplayer.peer_disconnected.connect(erase_session)
 	
-	#signal_session_info.emit(session_info)
+	signal_session_info.emit(session_info)
 
 func add_session(peer_id: int):
 	await get_tree().create_timer(1.0).timeout
@@ -37,6 +37,7 @@ func erase_session(peer_id: int):
 
 @rpc("authority", "call_local")
 func replicate_session_info(new_info):
+	#session_info.clear()
 	signal_session_info.emit(new_info)
 
 func get_player(peer_id: int) -> Player:

@@ -39,6 +39,10 @@ func add_player_name(username: String):
 	player_list.add_child(new_item)
 
 func render_items(new_info: Dictionary):
+	
+	for element in player_list.get_children():
+		element.queue_free()
+	
 	for peer_id in new_info.keys():
 		var player_info = new_info[peer_id]
 		
