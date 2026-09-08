@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://bl7bhv03mtmjk"]
+
+[ext_resource type="Script" uid="uid://dtb7mriocgnbf" path="res://Scripts/bullet.gd" id="1_eoc3h"]
+[ext_resource type="Script" uid="uid://c4ao2y2oxew4q" path="res://Scripts/hit_box.gd" id="2_l8742"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
+size = Vector2(6, 10)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1fef"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fxbbb"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("ColorRect:modulate")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("ColorRect:scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_l8742"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vatw8"]
+resource_name = "in"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049999997),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.049999997),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t6id0"]
+_data = {
+&"RESET": SubResource("Animation_l8742"),
+&"in": SubResource("Animation_vatw8")
+}
+
+[node name="Bullet" type="RigidBody2D" unique_id=752415312]
+position = Vector2(0, -5)
+mass = 0.2
+gravity_scale = 0.0
+script = ExtResource("1_eoc3h")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1478654397 groups=["Bullet"]]
+modulate = Color(1, 1, 1, 0)
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 3.0
+offset_bottom = 5.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1227554006]
+shape = SubResource("RectangleShape2D_s1fef")
+
+[node name="HitArea" type="Area2D" parent="." unique_id=979795071 groups=["Bullet"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_l8742")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=1275548764]
+shape = SubResource("CapsuleShape2D_s1fef")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=193695441]
+replication_config = SubResource("SceneReplicationConfig_fxbbb")
+
+[node name="QueueFreeTimer" type="Timer" parent="." unique_id=835635748]
+wait_time = 10.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1850999198]
+libraries/ = SubResource("AnimationLibrary_t6id0")
+
+[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_area_entered"]

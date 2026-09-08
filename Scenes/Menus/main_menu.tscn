@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://cqkvqhficj4pk"]
+
+[ext_resource type="Script" uid="uid://ccu671py2ogh2" path="res://Scripts/main_menu.gd" id="1_38aua"]
+[ext_resource type="Texture2D" uid="uid://f2yo16annf56" path="res://Assets/Menus/MainMenu/Group 1.png" id="2_aur2u"]
+[ext_resource type="FontFile" uid="uid://cvsn4niy0s83l" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyPoster-3zRAp.otf" id="2_penys"]
+[ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="2_pha2q"]
+[ext_resource type="Script" uid="uid://bimelmc1ce1b2" path="res://addons/simple-gui-transitions/transition.gd" id="5_5wi6m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
+font = ExtResource("2_penys")
+font_size = 121
+
+[sub_resource type="Theme" id="Theme_f2gx0"]
+default_font_size = 26
+
+[node name="MainMenu" type="CanvasLayer" unique_id=1412315135]
+script = ExtResource("1_38aua")
+
+[node name="BG" type="ColorRect" parent="." unique_id=854583261]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -235.0
+offset_top = -182.0
+offset_right = 206.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27450982, 0.27450982, 0.27450982, 1)
+
+[node name="BGTop" type="Sprite2D" parent="." unique_id=851338633]
+position = Vector2(587.00006, 315)
+scale = Vector2(0.5541914, 0.5541914)
+texture = ExtResource("2_aur2u")
+
+[node name="LabelTitle" type="Label" parent="." unique_id=1443790236]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -265.0
+offset_right = 133.0
+offset_bottom = -135.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Bounty"
+label_settings = SubResource("LabelSettings_s1fef")
+
+[node name="UI" type="Control" parent="." unique_id=336723294]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_f2gx0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=203149108]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -212.375
+offset_top = -53.5
+offset_right = 212.375
+offset_bottom = 245.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEditUsername" type="LineEdit" parent="UI/VBoxContainer" unique_id=504743183]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Username"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/VBoxContainer" unique_id=772667804]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="ButtonCreateServer" type="Button" parent="UI/VBoxContainer" unique_id=1042082632]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Create Server"
+
+[node name="HSeparator2" type="HSeparator" parent="UI/VBoxContainer" unique_id=789604711]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="LineEditJoinCode" type="LineEdit" parent="UI/VBoxContainer" unique_id=1136617474]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Join Code"
+alignment = 1
+max_length = 13
+
+[node name="ButtonJoinServer" type="Button" parent="UI/VBoxContainer" unique_id=478346216]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Join Server"
+
+[node name="HSeparator3" type="HSeparator" parent="UI/VBoxContainer" unique_id=604011780]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="ButtonQuit" type="Button" parent="UI/VBoxContainer" unique_id=734952594]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="VHSColorRect" parent="." unique_id=207397534 instance=ExtResource("2_pha2q")]
+
+[node name="GuiTransition" type="Node" parent="." unique_id=483167710]
+script = ExtResource("5_5wi6m")
+layout = NodePath("../UI")
+group = NodePath("../UI/VBoxContainer")
+metadata/_custom_type_script = "uid://bimelmc1ce1b2"

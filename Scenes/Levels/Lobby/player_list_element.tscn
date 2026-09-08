@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bgfs1sy1uf0ts"]
+
+[ext_resource type="Script" uid="uid://c1s8ujwjonvf1" path="res://Scripts/player_list_element.gd" id="1_hbnud"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hbnud"]
+properties/0/path = NodePath("MarginContainer/HBoxContainer/PlayerColor:color")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:size")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="PlayerListElement" type="Panel" unique_id=1500651024]
+custom_minimum_size = Vector2(0, 40)
+offset_right = 217.0
+offset_bottom = 42.0
+script = ExtResource("1_hbnud")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=907203885]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1767908890]
+layout_mode = 2
+
+[node name="LabelName" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1462019116]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=1637810842]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayerColor" type="ColorRect" parent="MarginContainer/HBoxContainer" unique_id=926349770]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=493951576]
+replication_config = SubResource("SceneReplicationConfig_hbnud")

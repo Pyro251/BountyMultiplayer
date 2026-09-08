@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://b6simdqsndjn7"]
+
+[ext_resource type="Script" uid="uid://dlxn38y6xmqhi" path="res://Scenes/Levels/lobby.gd" id="1_xwyih"]
+[ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="2_v5hfa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
+font = ExtResource("2_v5hfa")
+font_size = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1fef"]
+bg_color = Color(0.8132577, 0.81325775, 0.8132574, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_khhxn"]
+font = ExtResource("2_v5hfa")
+font_size = 45
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jqpmk"]
+properties/0/path = NodePath(".:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Lobby" type="Control" unique_id=1379259933]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xwyih")
+
+[node name="BG" type="ColorRect" parent="." unique_id=837997232]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.2159017, 0.21590173, 0.2159017, 1)
+
+[node name="LabelTitle" type="Label" parent="." unique_id=385959233]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 70.0
+grow_horizontal = 2
+text = "Lobby"
+label_settings = SubResource("LabelSettings_s1fef")
+
+[node name="PlayersList" type="Panel" parent="." unique_id=309286491]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 44.0
+offset_top = 89.0
+offset_right = 513.0
+offset_bottom = 601.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s1fef")
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayersList" unique_id=881454195]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayersList/MarginContainer" unique_id=896022261]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LabelPlayersTitle" type="Label" parent="PlayersList/MarginContainer/VBoxContainer" unique_id=633236637]
+layout_mode = 2
+text = "Players"
+label_settings = SubResource("LabelSettings_khhxn")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PlayersList/MarginContainer/VBoxContainer" unique_id=903549552]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayersList/MarginContainer/VBoxContainer" unique_id=1475040672]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="PlayersList/MarginContainer/VBoxContainer" unique_id=1827589551]
+layout_mode = 2
+
+[node name="ButtonStartServer" type="Button" parent="." unique_id=1207928204]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 87.0
+offset_top = 545.0
+offset_right = 265.0
+offset_bottom = 582.0
+disabled = true
+text = "Start Server"
+
+[node name="ButtonServerSettings" type="Button" parent="." unique_id=2078093457]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 279.0
+offset_top = 545.0
+offset_right = 457.0
+offset_bottom = 582.0
+text = "Server Settings"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1400397074]
+replication_config = SubResource("SceneReplicationConfig_jqpmk")
+
+[connection signal="pressed" from="ButtonStartServer" to="." method="_on_button_start_server_pressed"]
