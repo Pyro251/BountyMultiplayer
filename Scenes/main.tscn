@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://xm7621wklg6t"]
 
+[ext_resource type="Script" uid="uid://m8ypjak8cdmr" path="res://Scenes/main.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://cqkvqhficj4pk" path="res://Scenes/Menus/main_menu.tscn" id="1_jjgbg"]
 
 [node name="Main" type="Node" unique_id=1510367671]
+script = ExtResource("1_bo1nx")
 
 [node name="MainMenu" parent="." unique_id=1412315135 instance=ExtResource("1_jjgbg")]

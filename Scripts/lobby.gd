@@ -15,6 +15,7 @@ func _ready() -> void:
 	#
 	#Network.update_lobby_list.connect(add_player_name)
 	
+	
 	if not multiplayer.is_server():
 		button_start_server.disabled = true
 		button_start_server.text = "Waiting for Host..."

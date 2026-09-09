@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://brujanmimtvi7"]
+[gd_scene format=3 uid="uid://bf13mqvwlnotp"]
 
-[ext_resource type="Script" uid="uid://ccqg5wbhebi2m" path="res://Scripts/level.gd" id="1_7u4ml"]
+[ext_resource type="Script" uid="uid://ccqg5wbhebi2m" path="res://Scripts/level.gd" id="1_jgdhe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
 font_size = 128
 
 [node name="Level1" type="Node2D" unique_id=2100780863]
-script = ExtResource("1_7u4ml")
+script = ExtResource("1_jgdhe")
 
 [node name="BG" type="ColorRect" parent="." unique_id=1820535795]
 z_index = -1
@@ -21,7 +21,7 @@ offset_left = -370.0
 offset_top = -312.0
 offset_right = 57.0
 offset_bottom = -137.0
-text = "Level 1"
+text = "Level 2"
 label_settings = SubResource("LabelSettings_s1fef")
 
 [node name="SpawnContainer" type="Node2D" parent="." unique_id=1400604443]

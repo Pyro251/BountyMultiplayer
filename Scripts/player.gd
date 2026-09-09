@@ -24,8 +24,12 @@ var health: float = 100.0
 var desired_offset: Vector2
 var min_offset = -200
 var max_offset = 200
+var _shake_strength: float = 0.0
+var max_shake: float = 7.0
+var shake_fade: float = 10.0
 
 var in_lobby: bool = true
+var dead: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
@@ -77,6 +81,8 @@ func _ready():
 		return
 	
 	Global.update_cursor_visibility.connect(update_cursor_visibility)
+	Global.signal_all_players_dead.connect(all_players_dead)
+	Global.signal_player_won.connect(player_won)
 	
 	Network.update_username_list_signal.connect(update_username_list)
 	
@@ -102,7 +108,7 @@ func _process(delta: float) -> void:
 	
 	# Camera movement to mouse:
 	
-	if !in_lobby:
+	if !in_lobby and !dead:
 		desired_offset = (get_global_mouse_position() - position) * 0.5
 		desired_offset.x = clamp(desired_offset.x, min_offset, max_offset)
 		desired_offset.y = clamp(desired_offset.y, min_offset / 2.0, max_offset / 2.0)
@@ -110,6 +116,15 @@ func _process(delta: float) -> void:
 		cam.global_position = global_position + desired_offset
 	else:
 		cam.global_position = Vector2((get_window().size.x / 2), (get_window().size.y / 2))
+	
+	# Camera shake:
+	
+	if _shake_strength > 0:
+		_shake_strength = lerp(_shake_strength, 0.0, shake_fade * delta)
+		cam.offset = Vector2(randf_range(-_shake_strength, _shake_strength), randf_range(-_shake_strength, _shake_strength))
+
+func trigger_camera_shake():
+	_shake_strength = max_shake
 
 func update_cursor_visibility():
 	cursor.visible = !cursor.visible
@@ -124,7 +139,8 @@ func shoot():
 	var pos = shoot_pos.global_position
 	var id = multiplayer.get_unique_id()
 	
-	Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
+	#Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
+	Global.shoot.rpc(id, pos, facing_dir, shooting_dir, force)
 	
 	label_ammo.text = str("Ammo: ", ammo)
 
@@ -140,7 +156,69 @@ func server_started():
 	in_lobby = false
 	%UI.show()
 	body.show()
-	print("Player intanciated into first level.")
+
+func die():
+	dead = true
+	body.hide()
+	cursor.hide()
+	nameplate.hide()
+	
+	Global.living_players -= 1
+	print("Player died! Now ", Global.living_players, " Living Players.")
+	
+	if Global.living_players == 1:
+		Global.all_players_dead.rpc()
+	
+
+func all_players_dead():
+	%EveryoneDeadUI.show()
+	
+	
+	if !dead:
+		Global.player_won.rpc(Global.username)
+	
+	
+	Global.erase_old_level.emit()
+	if multiplayer.is_server():
+		Global.instanciate_level.rpc(randi_range(1, 2))
+	
+	
+	await get_tree().create_timer(2).timeout
+	
+	spawn()
+
+func player_won(username):
+	%LabelTitleName.text = username
+	
+	if username == Global.username:
+		Global.won_last_round = true
+	else:
+		Global.won_last_round = false
+
+func spawn():
+	health = 100
+	progress_bar_health.value = health
+	
+	position = Vector2(randf_range(-20, 20), randf_range(-20, 20))
+	
+	if !Global.won_last_round:
+		Global.living_players += 1
+	
+	body.show()
+	cursor.show()
+	nameplate.show()
+	%EveryoneDeadUI.hide()
+	
+	dead = false
+
+#func instanciate_level(level: int):
+	#pass
+
+func spectate_next():
+	pass
+
+func spectate_last():
+	pass
 
 func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") and area.id != multiplayer.get_unique_id():
@@ -149,9 +227,13 @@ func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 		if health <= 0:
 			health = 0
 		
+		if health == 0 and !dead:
+			die()
+		
 		progress_bar_health.value = health
 		label_ammo.text = str("Ammo: ", ammo)
 		
 		anim_player_hurt.play("hurt")
 		
+		trigger_camera_shake()
 		add_damage_counter()
