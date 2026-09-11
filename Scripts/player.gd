@@ -27,12 +27,8 @@ var health: float = 100.0
 var desired_offset: Vector2
 var min_offset = -200
 var max_offset = 200
-var _shake_strength: float = 0.0
-var max_shake: float = 7.0
-var shake_fade: float = 10.0
 
 var in_lobby: bool = true
-var dead: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(name))
@@ -84,10 +80,13 @@ func _ready():
 	#Network.update_lobby_list.emit(Global.username)
 	
 	Global.update_cursor_visibility.connect(update_cursor_visibility)
+<<<<<<< HEAD
 	Global.signal_all_players_dead.connect(all_players_dead)
 	Global.signal_player_won.connect(player_won)
 	Global.signal_send_kill.connect(recieve_kill)
 	Global.signal_server_started.connect(server_started)
+=======
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 	
 	Network.update_username_list_signal.connect(update_username_list)
 	
@@ -119,7 +118,7 @@ func _process(delta: float) -> void:
 	
 	# Camera movement to mouse:
 	
-	if !in_lobby and !dead:
+	if !in_lobby:
 		desired_offset = (get_global_mouse_position() - position) * 0.5
 		desired_offset.x = clamp(desired_offset.x, min_offset, max_offset)
 		desired_offset.y = clamp(desired_offset.y, min_offset / 2.0, max_offset / 2.0)
@@ -127,15 +126,6 @@ func _process(delta: float) -> void:
 		cam.global_position = global_position + desired_offset
 	else:
 		cam.global_position = Vector2((get_window().size.x / 2), (get_window().size.y / 2))
-	
-	# Camera shake:
-	
-	if _shake_strength > 0:
-		_shake_strength = lerp(_shake_strength, 0.0, shake_fade * delta)
-		cam.offset = Vector2(randf_range(-_shake_strength, _shake_strength), randf_range(-_shake_strength, _shake_strength))
-
-func trigger_camera_shake():
-	_shake_strength = max_shake
 
 func update_cursor_visibility():
 	cursor.visible = !cursor.visible
@@ -156,8 +146,7 @@ func shoot():
 	var pos = shoot_pos.global_position
 	var id = multiplayer.get_unique_id()
 	
-	#Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
-	Global.shoot.rpc(id, pos, facing_dir, shooting_dir, force)
+	Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
 	
 	label_ammo.text = str("Ammo: ", ammo)
 
@@ -173,6 +162,7 @@ func server_started():
 	in_lobby = false
 	%UI.show()
 	body.show()
+<<<<<<< HEAD
 	
 	round_timer.wait_time = (Global.total_time * 60)
 	round_timer.start()
@@ -248,6 +238,9 @@ func spectate_next():
 
 func spectate_last():
 	pass
+=======
+	print("Player intanciated into first level.")
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 
 func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") and area.id != multiplayer.get_unique_id():
@@ -256,17 +249,19 @@ func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 		if health <= 0:
 			health = 0
 		
+<<<<<<< HEAD
 		if health == 0 and !dead:
 			# Must put send kill function before die function so that money resets to 0 after player sends signal containing current money.
 			Global.send_kill.rpc_id(area.id, Global.money)
 			die()
 		
+=======
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 		progress_bar_health.value = health
 		label_ammo.text = str("Ammo: ", ammo)
 		
 		anim_player_hurt.play("hurt")
 		
-		trigger_camera_shake()
 		add_damage_counter()
 
 

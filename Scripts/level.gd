@@ -4,5 +4,4 @@ extends Node2D
 
 
 func _ready() -> void:
-	Global.spawn_container = %SpawnContainer
-	Global.erase_old_level.connect(func(): queue_free())
+	Global.spawn_container = spawn_container

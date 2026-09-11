@@ -2,6 +2,7 @@ extends Node
 
 signal update_cursor_visibility
 signal signal_session_info(new_info)
+<<<<<<< HEAD
 signal signal_all_players_dead
 signal signal_player_won(username)
 signal signal_instanciate_level(level)
@@ -10,6 +11,8 @@ signal signal_send_kill(money)
 signal erase_old_level
 signal signal_update_highest_money(money)
 signal signal_server_started
+=======
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -29,12 +32,15 @@ var username := ''
 # peer_id: {kills: 0, username: str}
 var session_info: Dictionary = { }
 
+<<<<<<< HEAD
 var total_time: int = 2
 var total_rounds: int = 10
 var rounds_left: int
 var won_last_round: bool = false
 
 
+=======
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 func _ready() -> void:
 	Network.tube_client.session_created.connect(set_up_name_list)
 
@@ -84,6 +90,7 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 @rpc("any_peer", "call_local", "reliable")
 func instanciate_players():
 	Network.signal_server_started.emit()
+<<<<<<< HEAD
 
 @rpc("any_peer", "call_local", "reliable")
 func all_players_dead():
@@ -114,3 +121,5 @@ func update_highest_money(money: int):
 @rpc("authority", "call_local", "reliable")
 func server_started():
 	signal_server_started.emit()
+=======
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
