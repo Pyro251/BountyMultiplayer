@@ -11,6 +11,7 @@ const LEVEL_1 = preload("uid://brujanmimtvi7")
 var server_owned: bool = false
 
 func _ready() -> void:
+	
 	add_player_name(Global.username)
 	
 	

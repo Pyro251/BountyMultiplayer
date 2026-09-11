@@ -5,6 +5,9 @@ signal signal_session_info(new_info)
 signal signal_update_lobby_usernames(username)
 signal signal_apply_server_settings(time)
 signal signal_player_killed(money)
+signal signal_player_won(username)
+signal signal_update_highest_money(money)
+signal signal_end_round
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -19,6 +22,7 @@ var round_time: int = 2
 
 var money: int = 0
 var base_money_per_kill: int = 5
+var highest_money: int
 
 # peer_id: {kills: 0, username: str}
 var session_info: Dictionary = { }
@@ -84,3 +88,15 @@ func apply_server_settings(time):
 @rpc("any_peer", "reliable")
 func player_killed(money):
 	signal_player_killed.emit(money)
+
+@rpc("authority", "call_local", "reliable")
+func end_round():
+	signal_end_round.emit()
+
+@rpc("any_peer", "call_local", "reliable")
+func player_won(username):
+	signal_player_won.emit(username)
+
+@rpc("any_peer", "call_local", "reliable")
+func update_highest_money(money: int):
+	signal_update_highest_money.emit(money)
