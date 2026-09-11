@@ -4,6 +4,7 @@ signal update_cursor_visibility
 signal signal_session_info(new_info)
 signal signal_update_lobby_usernames(username)
 signal signal_apply_server_settings(time)
+signal signal_player_killed(money)
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -79,3 +80,7 @@ func update_lobby_usernames(username):
 @rpc("authority", "call_local", "reliable")
 func apply_server_settings(time):
 	signal_apply_server_settings.emit(time)
+
+@rpc("any_peer", "reliable")
+func player_killed(money):
+	signal_player_killed.emit(money)

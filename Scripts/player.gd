@@ -77,6 +77,7 @@ func _ready():
 		return
 	
 	Global.update_cursor_visibility.connect(update_cursor_visibility)
+	Global.signal_player_killed.connect(recieve_kill)
 	
 	Network.update_username_list_signal.connect(update_username_list)
 	
@@ -93,6 +94,8 @@ func _process(delta: float) -> void:
 	
 	cursor.global_position = get_global_mouse_position()
 	body.look_at(cursor.global_position)
+	
+	%RespawnProgressBar.value = %RespawnTimer.time_left
 	
 	#shovel.look_at(get_global_mouse_position())
 	
@@ -142,12 +145,36 @@ func server_started():
 	body.show()
 	print("Player intanciated into first level.")
 
+func die():
+	%Body.hide()
+	%Cursor.hide()
+	%UI.hide()
+	%RespawnUI.show()
+	
+	%RespawnTimer.start()
+
+func spawn():
+	health = 100
+	progress_bar_health.value = health
+	
+	%Body.show()
+	%Cursor.show()
+	%UI.show()
+	
+	%RespawnUI.hide()
+
+func recieve_kill(money):
+	Global.money += (money + Global.base_money_per_kill)
+
 func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") and area.id != multiplayer.get_unique_id():
 		health -= 10
 		
 		if health <= 0:
 			health = 0
+			# Call signal before die function so that money resets after player killed signal is emitted
+			Global.player_killed.rpc_id(area.id, Global.money)
+			die()
 		
 		progress_bar_health.value = health
 		label_ammo.text = str("Ammo: ", ammo)
@@ -155,3 +182,7 @@ func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 		anim_player_hurt.play("hurt")
 		
 		add_damage_counter()
+
+
+func _on_respawn_timer_timeout() -> void:
+	spawn()

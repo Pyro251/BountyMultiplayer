@@ -87,7 +87,7 @@ _data = {
 
 [node name="Bullet" type="RigidBody2D" unique_id=752415312]
 position = Vector2(0, -5)
-mass = 0.2
+mass = 0.02
 gravity_scale = 0.0
 script = ExtResource("1_eoc3h")
 

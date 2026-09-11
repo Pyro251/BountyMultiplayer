@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bko7yvep2w33" path="res://Scripts/player.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://cssovl4mee1o4" path="res://Scenes/Menus/pause_menu.tscn" id="2_a3d8c"]
+[ext_resource type="Shader" uid="uid://j4v8eqxv32xq" path="res://Assets/Shaders/blur.gdshader" id="3_htcer"]
 [ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="3_xpcdj"]
+[ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="4_dd0ac"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpcdj"]
 bg_color = Color(0.88376683, 0.41330686, 0.3553949, 1)
@@ -44,6 +46,37 @@ properties/4/replication_mode = 1
 [sub_resource type="LabelSettings" id="LabelSettings_a3d8c"]
 font_size = 30
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
+shader = ExtResource("3_htcer")
+shader_parameter/strength = 4.3000002009901195
+shader_parameter/mix_percentage = 0.250000011875
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font = ExtResource("4_dd0ac")
+font_size = 111
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57qmd"]
+bg_color = Color(0.6715141, 0.67151415, 0.671514, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0.25275353, 0.2527536, 0.25275344, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1fef"]
 radius = 20.0
@@ -157,6 +190,7 @@ label_settings = SubResource("LabelSettings_a3d8c")
 
 [node name="LabelUsernames" type="RichTextLabel" parent="UI" unique_id=320266639]
 unique_name_in_owner = true
+visible = false
 offset_left = 38.0
 offset_top = 95.0
 offset_right = 203.0
@@ -165,6 +199,64 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Players:
 "
+
+[node name="LabelMoney" type="Label" parent="UI" unique_id=2143990960]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="LabelTimeLeft" type="Label" parent="UI" unique_id=219290351]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RespawnUI" type="CanvasLayer" parent="." unique_id=120413412]
+unique_name_in_owner = true
+visible = false
+
+[node name="Blur" type="ColorRect" parent="RespawnUI" unique_id=1731681701]
+material = SubResource("ShaderMaterial_g4v7s")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelTitle" type="Label" parent="RespawnUI" unique_id=1508298011]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = -100.0
+offset_right = 297.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Respawning...."
+label_settings = SubResource("LabelSettings_g4v7s")
+
+[node name="RespawnProgressBar" type="ProgressBar" parent="RespawnUI" unique_id=249107370]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = 26.5
+offset_right = 322.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_57qmd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g4v7s")
+max_value = 3.0
+value = 3.0
+fill_mode = 1
+show_percentage = false
 
 [node name="VHSShader" type="CanvasLayer" parent="." unique_id=216002883]
 
@@ -189,7 +281,16 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DHitBox" unique_id=500522218]
 shape = SubResource("CircleShape2D_khhxn")
 
+[node name="RespawnTimer" type="Timer" parent="." unique_id=1233594012]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="RoundTimer" type="Timer" parent="." unique_id=375793718]
+unique_name_in_owner = true
+
 [node name="AnimPlayerHurt" type="AnimationPlayer" parent="." unique_id=1195109882]
 libraries/ = SubResource("AnimationLibrary_htcer")
 
 [connection signal="area_entered" from="Area2DHitBox" to="." method="_on_area_2d_hit_box_area_entered"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
