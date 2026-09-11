@@ -39,6 +39,11 @@ func tube_create():
 	print("Total players: ", Global.total_players)
 
 func tube_join(session_id: String):
+	
+	tube_client.leave_session()
+	# Give Godot a tiny moment to tear down the WebRTC connection cleanly
+	await get_tree().create_timer(0.1).timeout 
+	
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
 	multiplayer.connected_to_server.connect(on_connected_to_server)
