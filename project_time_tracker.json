@@ -1,8 +1,16 @@
 {
+<<<<<<< HEAD
   "2D": 4436.934,
   "3D": 16.308,
   "AFK": 625.02,
   "Asset Store": 63.554,
   "Game": 5282.444,
   "Script": 14229.595
+=======
+  "2D": 1144.239,
+  "AFK": 121.658,
+  "Asset Store": 63.554,
+  "Game": 3058.089,
+  "Script": 7076.2
+>>>>>>> parent of 3032a9d (4: Add blur shader, lobby UI & round/money features)
 }

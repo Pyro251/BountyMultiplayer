@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://b6simdqsndjn7"]
 
 [ext_resource type="Script" uid="uid://dlxn38y6xmqhi" path="res://Scripts/lobby.gd" id="1_xwyih"]
-[ext_resource type="Texture2D" uid="uid://pxj3b3e28fg3" path="res://addons/tube/inspector/icons/clipboard_icon.tres" id="2_jqpmk"]
 [ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="2_v5hfa"]
 [ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="3_v5hfa"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_qsuaf"]
-font_size = 35
 
 [sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
 font = ExtResource("2_v5hfa")
@@ -30,109 +26,10 @@ font = ExtResource("2_v5hfa")
 font_size = 45
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_jqpmk"]
-font_size = 30
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_s1fef"]
-thickness = 5
-
-[sub_resource type="LabelSettings" id="LabelSettings_wb4oo"]
-font_size = 29
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_bowr3"]
-font_size = 30
-font_color = Color(0, 0, 0, 1)
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jqpmk"]
 properties/0/path = NodePath(".:visible")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-
-[sub_resource type="Animation" id="Animation_jqpmk"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ServerSettingsServer:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2),
-"points": PackedFloat32Array(577, -0.2, 0, 0.2, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ServerSettingsServer:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(2),
-"points": PackedFloat32Array(725, -0.2, 0, 0.2, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_223da"]
-resource_name = "in"
-length = 0.3
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ServerSettingsServer:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 0),
-"points": PackedFloat32Array(577, 0, 0, 0.06666667, 0, 577, -0.2, 0, 0.2, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ServerSettingsServer:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 0),
-"points": PackedFloat32Array(709, 0, 0, 0.06666667, -89.333336, 173, -0.2, 0, 0.2, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-
-[sub_resource type="Animation" id="Animation_o0t5h"]
-resource_name = "out"
-length = 0.3
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ServerSettingsServer:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 0),
-"points": PackedFloat32Array(577, 0, 0, 0.050000004, 0, 577, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ServerSettingsServer:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 0),
-"points": PackedFloat32Array(173, 0, 0, 0.050000004, 89.333336, 709, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ix16u"]
-_data = {
-&"RESET": SubResource("Animation_jqpmk"),
-&"in": SubResource("Animation_223da"),
-&"out": SubResource("Animation_o0t5h")
-}
 
 [node name="Lobby" type="Control" unique_id=1379259933]
 layout_mode = 3
@@ -153,30 +50,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.2159017, 0.21590173, 0.2159017, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1604398124]
-layout_mode = 0
-offset_left = 592.0
-offset_top = 96.0
-offset_right = 1068.0
-offset_bottom = 159.0
-
-[node name="LabelJoinCode" type="Label" parent="HBoxContainer" unique_id=1383398794]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 2
-text = "Join Code: ######"
-label_settings = SubResource("LabelSettings_qsuaf")
-horizontal_alignment = 1
-
-[node name="ButtonCopyJoinCode" type="Button" parent="HBoxContainer" unique_id=1868092762]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/icon_max_width = 55
-theme_override_font_sizes/font_size = 25
-text = "Copy"
-icon = ExtResource("2_jqpmk")
-
 [node name="LabelTitle" type="Label" parent="." unique_id=385959233]
 layout_mode = 1
 anchors_preset = 5
@@ -189,6 +62,25 @@ offset_bottom = 70.0
 grow_horizontal = 2
 text = "Lobby"
 label_settings = SubResource("LabelSettings_s1fef")
+
+[node name="LabelJoinCode" type="RichTextLabel" parent="." unique_id=1278445386]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.545
+anchor_top = 0.162
+anchor_right = 0.938
+anchor_bottom = 0.634
+offset_left = 0.15997314
+offset_top = 0.024002075
+offset_right = 0.4239502
+offset_bottom = 0.16799927
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Join Code:
+######"
+horizontal_alignment = 1
+selection_enabled = true
 
 [node name="PlayersList" type="Panel" parent="." unique_id=309286491]
 unique_name_in_owner = true
@@ -238,114 +130,6 @@ layout_mode = 2
 [node name="HSeparator2" type="HSeparator" parent="PlayersList/MarginContainer/VBoxContainer" unique_id=1827589551]
 layout_mode = 2
 
-[node name="ServerSettingsServer" type="Panel" parent="." unique_id=1132583844]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 577.0
-offset_top = 725.0
-offset_right = 1099.0
-offset_bottom = 1146.9985
-theme_override_styles/panel = SubResource("StyleBoxFlat_s1fef")
-
-[node name="MarginContainer" type="MarginContainer" parent="ServerSettingsServer" unique_id=704930637]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 70
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ServerSettingsServer/MarginContainer" unique_id=1734483575]
-layout_mode = 2
-theme_override_constants/separation = 19
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=1314872952]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 34
-alignment = 1
-
-[node name="LabelRoundTimeTitle" type="Label" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=733337296]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Time (mins): "
-label_settings = SubResource("LabelSettings_jqpmk")
-
-[node name="ButtonRoundDown" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1558192207]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "<"
-
-[node name="LabelRoundTime" type="Label" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2128378183]
-unique_name_in_owner = true
-layout_mode = 2
-text = "2"
-label_settings = SubResource("LabelSettings_jqpmk")
-
-[node name="ButtonRoundUp" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=190569989]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = ">"
-
-[node name="HSeparator" type="HSeparator" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=200485388]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_s1fef")
-
-[node name="ButtonApplyServerSettings" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=1071788266]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Apply"
-
-[node name="ServerSettingsClient" type="Panel" parent="." unique_id=1679621583]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 577.0
-offset_top = 173.0
-offset_right = 1099.0
-offset_bottom = 594.99854
-theme_override_styles/panel = SubResource("StyleBoxFlat_s1fef")
-
-[node name="MarginContainer" type="MarginContainer" parent="ServerSettingsClient" unique_id=1161744530]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ServerSettingsClient/MarginContainer" unique_id=606569406]
-layout_mode = 2
-theme_override_constants/separation = 19
-
-[node name="LabelTitle" type="Label" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=1829684541]
-layout_mode = 2
-text = "Server Settings"
-label_settings = SubResource("LabelSettings_wb4oo")
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=1814852801]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_s1fef")
-
-[node name="LabelTotalTimeClient" type="Label" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=413749153]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Time (mins): 2"
-label_settings = SubResource("LabelSettings_bowr3")
-horizontal_alignment = 1
-
 [node name="ButtonStartServer" type="Button" parent="." unique_id=1207928204]
 unique_name_in_owner = true
 layout_mode = 1
@@ -358,6 +142,7 @@ offset_left = -0.55200195
 offset_top = 0.031982422
 offset_right = 0.040008545
 offset_bottom = 0.095947266
+disabled = true
 text = "Start Server"
 
 [node name="ButtonServerSettings" type="Button" parent="." unique_id=2078093457]
@@ -380,13 +165,4 @@ layout_mode = 1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1400397074]
 replication_config = SubResource("SceneReplicationConfig_jqpmk")
 
-[node name="AnimationPlayerServerSettings" type="AnimationPlayer" parent="." unique_id=1030385891]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_ix16u")
-
-[connection signal="pressed" from="HBoxContainer/ButtonCopyJoinCode" to="." method="_on_button_copy_join_code_pressed"]
-[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonRoundDown" to="." method="_on_button_round_down_pressed"]
-[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonRoundUp" to="." method="_on_button_round_up_pressed"]
-[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/ButtonApplyServerSettings" to="." method="_on_button_apply_server_settings_pressed"]
 [connection signal="pressed" from="ButtonStartServer" to="." method="_on_button_start_server_pressed"]
-[connection signal="pressed" from="ButtonServerSettings" to="." method="_on_button_server_settings_pressed"]
