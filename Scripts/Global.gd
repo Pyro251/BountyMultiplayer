@@ -5,9 +5,19 @@ signal signal_session_info(new_info)
 signal signal_all_players_dead
 signal signal_player_won(username)
 signal signal_instanciate_level(level)
+signal signal_apply_server_settings(time)
+signal signal_send_kill(money)
 signal erase_old_level
+signal signal_update_highest_money(money)
+signal signal_server_started
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
+
+var money: int = 0
+var money_per_kill: int = 5
+
+var highest_money: int = 0
+var highest_money_player_id
 
 var total_players: int
 var living_players: int
@@ -19,9 +29,11 @@ var username := ''
 # peer_id: {kills: 0, username: str}
 var session_info: Dictionary = { }
 
-var total_rounds: int
+var total_time: int = 2
+var total_rounds: int = 10
 var rounds_left: int
 var won_last_round: bool = false
+
 
 func _ready() -> void:
 	Network.tube_client.session_created.connect(set_up_name_list)
@@ -35,7 +47,7 @@ func set_up_name_list():
 	signal_session_info.emit(session_info)
 
 func add_session(peer_id: int):
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	var new_player = get_player(peer_id)
 	session_info[peer_id] = { "kills": 0, "username": new_player.nameplate.text}
 	replicate_session_info.rpc(session_info)
@@ -68,7 +80,6 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 	
 	spawn_container.add_child(new_bullet, true)
 	new_bullet.apply_central_impulse(shooting_dir * force)
-	print("shoot")
 
 @rpc("any_peer", "call_local", "reliable")
 func instanciate_players():
@@ -85,3 +96,21 @@ func player_won(username: String):
 @rpc("authority", "call_local", "reliable")
 func instanciate_level(level):
 	signal_instanciate_level.emit(level)
+
+
+@rpc("authority", "call_local", "reliable")
+func apply_server_settings(time: int):
+	signal_apply_server_settings.emit(total_rounds)
+
+@rpc("any_peer", "reliable")
+func send_kill(money: int):
+	signal_send_kill.emit(money)
+
+@rpc("any_peer", "call_local", "reliable")
+func update_highest_money(money: int):
+	if money > highest_money:
+		highest_money = money
+
+@rpc("authority", "call_local", "reliable")
+func server_started():
+	signal_server_started.emit()

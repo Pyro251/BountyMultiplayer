@@ -53,7 +53,7 @@ func add_lobby():
 	# Instanciates the world
 	var new_lobby = LOBBY.instantiate()
 	
-	if multiplayer.get_unique_id() == 1:
+	if multiplayer.is_server():
 		new_lobby.server_owned = true
 	
 	get_tree().current_scene.add_child(new_lobby)

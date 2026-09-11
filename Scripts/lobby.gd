@@ -6,7 +6,8 @@ const LEVEL_1 = preload("uid://brujanmimtvi7")
 
 @onready var player_list: VBoxContainer = %VBoxContainer
 @onready var button_start_server: Button = $ButtonStartServer
-@onready var label_join_code: RichTextLabel = $LabelJoinCode
+@onready var button_server_settings: Button = %ButtonServerSettings
+@onready var label_join_code: Label = %LabelJoinCode
 
 var server_owned: bool = false
 
@@ -16,9 +17,14 @@ func _ready() -> void:
 	#Network.update_lobby_list.connect(add_player_name)
 	
 	
-	if not multiplayer.is_server():
-		button_start_server.disabled = true
+	if !server_owned:
+		button_start_server.hide()
+		button_server_settings.hide()
 		button_start_server.text = "Waiting for Host..."
+	else:
+		button_start_server.show()
+		button_server_settings.show()
+		%ServerSettingsClient.hide()
 	
 	if !get_multiplayer_authority() == 1:
 		set_process(false)
@@ -26,12 +32,10 @@ func _ready() -> void:
 		return
 	
 	Global.signal_session_info.connect(render_items)
-	
-	if get_multiplayer_authority() == 1:
-		button_start_server.disabled = false
+	Global.signal_apply_server_settings.connect(apply_server_settings)
 	
 	
-	label_join_code.text = str("Join Code:\n", Network.tube_client.session_id)
+	label_join_code.text = str("Join Code: ", Network.tube_client.session_id)
 
 #@rpc("any_peer", "call_local")
 func add_player_name(username: String):
@@ -68,7 +72,35 @@ func _on_button_start_server_pressed() -> void:
 	hide_lobby_ui.rpc()
 	add_level.rpc()
 	Global.instanciate_players.rpc()
+	Global.server_started.rpc()
 
 @rpc("authority", "call_local", "reliable")
 func hide_lobby_ui():
 	hide()
+
+func apply_server_settings(time: int):
+	Global.total_time = time
+	%LabelTotalTimeClient.text = str("Rounds: ", Global.total_time)
+
+func _on_button_copy_join_code_pressed() -> void:
+	DisplayServer.clipboard_set(Network.tube_client.session_id)
+
+
+func _on_button_server_settings_pressed() -> void:
+	%AnimationPlayerServerSettings.play("in")
+
+
+func _on_button_apply_server_settings_pressed() -> void:
+	%AnimationPlayerServerSettings.play("out")
+	Global.apply_server_settings.rpc(Global.total_time)
+
+
+func _on_button_round_down_pressed() -> void:
+	if Global.total_time > 0:
+		Global.total_time -= 1
+	%LabelRoundTime.text = str(Global.total_time)
+
+
+func _on_button_round_up_pressed() -> void:
+	Global.total_time += 1
+	%LabelRoundTime.text = str(Global.total_time)
