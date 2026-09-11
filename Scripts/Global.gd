@@ -3,6 +3,7 @@ extends Node
 signal update_cursor_visibility
 signal signal_session_info(new_info)
 signal signal_update_lobby_usernames(username)
+signal signal_apply_server_settings(time)
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -12,6 +13,11 @@ var living_players: int
 var spawn_container: Node2D
 
 var username := ''
+
+var round_time: int = 2
+
+var money: int = 0
+var base_money_per_kill: int = 5
 
 # peer_id: {kills: 0, username: str}
 var session_info: Dictionary = { }
@@ -69,3 +75,7 @@ func instanciate_players():
 @rpc("any_peer", "call_local", "reliable")
 func update_lobby_usernames(username):
 	signal_update_lobby_usernames.emit(username)
+
+@rpc("authority", "call_local", "reliable")
+func apply_server_settings(time):
+	signal_apply_server_settings.emit(time)

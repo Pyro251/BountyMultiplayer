@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dlxn38y6xmqhi" path="res://Scenes/Levels/lobby.gd" id="1_xwyih"]
 [ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="2_v5hfa"]
+[ext_resource type="Texture2D" uid="uid://pxj3b3e28fg3" path="res://addons/tube/inspector/icons/clipboard_icon.tres" id="3_jqpmk"]
 [ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="3_v5hfa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
 font = ExtResource("2_v5hfa")
 font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1fef"]
 bg_color = Color(0.8132577, 0.81325775, 0.8132574, 1)
@@ -26,10 +30,176 @@ font = ExtResource("2_v5hfa")
 font_size = 45
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_yf5fn"]
+font_size = 27
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_g4v7s"]
+thickness = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_57qmd"]
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_yf5fn"]
+grow_begin = 2.0
+grow_end = 2.0
+thickness = 40
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jqpmk"]
 properties/0/path = NodePath(".:visible")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_jqpmk"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(609, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(725, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ServerSettingsClient:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(609, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ServerSettingsClient:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(725, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_223da"]
+resource_name = "in"
+length = 0.39999999999999997
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(609, 0, 0, 0.06666667, 0, 609, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(725, 0, 0, 0.06666667, -93.333336, 165, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ServerSettingsClient:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(609, 0, 0, 0.06666667, 0, 609, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ServerSettingsClient:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(725, 0, 0, 0.06666667, -93.333336, 165, -0.2, 0, 0.2, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+
+[sub_resource type="Animation" id="Animation_o0t5h"]
+resource_name = "out"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(609, 0, 0, 0.050000004, 0, 609, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(165, 0, 0, 0.050000004, 93.333336, 725, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ServerSettingsClient:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(609, 0, 0, 0.050000004, 0, 609, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ServerSettingsClient:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(165, 0, 0, 0.050000004, 93.333336, 725, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ix16u"]
+_data = {
+&"RESET": SubResource("Animation_jqpmk"),
+&"in": SubResource("Animation_223da"),
+&"out": SubResource("Animation_o0t5h")
+}
 
 [node name="Lobby" type="Control" unique_id=1379259933]
 layout_mode = 3
@@ -63,24 +233,28 @@ grow_horizontal = 2
 text = "Lobby"
 label_settings = SubResource("LabelSettings_s1fef")
 
-[node name="LabelJoinCode" type="RichTextLabel" parent="." unique_id=1278445386]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.545
-anchor_top = 0.162
-anchor_right = 0.938
-anchor_bottom = 0.634
-offset_left = 0.15997314
-offset_top = 0.024002075
-offset_right = 0.4239502
-offset_bottom = 0.16799927
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1867328463]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 93.0
+offset_right = 1073.0
+offset_bottom = 132.0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="LabelJoinCode" type="Label" parent="HBoxContainer" unique_id=1290616975]
+unique_name_in_owner = true
+layout_mode = 2
 focus_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "Join Code:
-######"
+text = "Join Code: ###"
+label_settings = SubResource("LabelSettings_g4v7s")
 horizontal_alignment = 1
-selection_enabled = true
+
+[node name="ButtonCopyJoinCode" type="Button" parent="HBoxContainer" unique_id=327522844]
+layout_mode = 2
+theme_override_constants/icon_max_width = 30
+text = "Copy"
+icon = ExtResource("3_jqpmk")
 
 [node name="PlayersList" type="Panel" parent="." unique_id=309286491]
 unique_name_in_owner = true
@@ -142,7 +316,6 @@ offset_left = -0.55200195
 offset_top = 0.031982422
 offset_right = 0.040008545
 offset_bottom = 0.095947266
-disabled = true
 text = "Start Server"
 
 [node name="ButtonServerSettings" type="Button" parent="." unique_id=2078093457]
@@ -159,10 +332,152 @@ offset_right = -0.34402466
 offset_bottom = 0.095947266
 text = "Server Settings"
 
+[node name="ServerSettingsServer" type="Panel" parent="." unique_id=1443947617]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 609.0
+offset_top = 725.0
+offset_right = 1100.0
+offset_bottom = 1154.1799
+theme_override_styles/panel = SubResource("StyleBoxFlat_s1fef")
+
+[node name="MarginContainer" type="MarginContainer" parent="ServerSettingsServer" unique_id=407955999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ServerSettingsServer/MarginContainer" unique_id=4373326]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LabelServerSettingsTitle" type="Label" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=285195020]
+z_index = 1
+layout_mode = 2
+text = "Server Settings"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=893852047]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_g4v7s")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=599779413]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LabelTimeTitle" type="Label" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1939707618]
+layout_mode = 2
+text = "Time (mins):"
+label_settings = SubResource("LabelSettings_57qmd")
+
+[node name="VSeparator" type="VSeparator" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=674849331]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="ButtonTimeDown" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1761371531]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "<"
+
+[node name="LabelRoundTimeServer" type="Label" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1139137267]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2"
+label_settings = SubResource("LabelSettings_57qmd")
+
+[node name="ButtonTimeUp" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=261002742]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = ">"
+
+[node name="ButtonApplyServerSettings" type="Button" parent="ServerSettingsServer/MarginContainer/VBoxContainer" unique_id=183214833]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Apply"
+
+[node name="ServerSettingsClient" type="Panel" parent="." unique_id=827757025]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 609.0
+offset_top = 725.0
+offset_right = 1100.0
+offset_bottom = 1154.1799
+theme_override_styles/panel = SubResource("StyleBoxFlat_s1fef")
+
+[node name="MarginContainer" type="MarginContainer" parent="ServerSettingsClient" unique_id=1620564061]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ServerSettingsClient/MarginContainer" unique_id=331482440]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LabelServerSettingsTitle" type="Label" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=1329491514]
+z_index = 1
+layout_mode = 2
+text = "Server Settings"
+label_settings = SubResource("LabelSettings_yf5fn")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=796646985]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_g4v7s")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=1564211047]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LabelTimeTitle" type="Label" parent="ServerSettingsClient/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1680646481]
+layout_mode = 2
+text = "Time (mins):"
+label_settings = SubResource("LabelSettings_57qmd")
+
+[node name="VSeparator" type="VSeparator" parent="ServerSettingsClient/MarginContainer/VBoxContainer/HBoxContainer" unique_id=612600196]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxLine_yf5fn")
+
+[node name="LabelRoundTimeClient" type="Label" parent="ServerSettingsClient/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1203323938]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2"
+label_settings = SubResource("LabelSettings_57qmd")
+
 [node name="VHSColorRect" parent="." unique_id=207397534 instance=ExtResource("3_v5hfa")]
 layout_mode = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1400397074]
 replication_config = SubResource("SceneReplicationConfig_jqpmk")
 
+[node name="ServerSettingsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=262669195]
+unique_name_in_owner = true
+root_node = NodePath("../ServerSettingsServer")
+libraries/ = SubResource("AnimationLibrary_ix16u")
+
+[connection signal="pressed" from="HBoxContainer/ButtonCopyJoinCode" to="." method="_on_button_copy_join_code_pressed"]
 [connection signal="pressed" from="ButtonStartServer" to="." method="_on_button_start_server_pressed"]
+[connection signal="pressed" from="ButtonServerSettings" to="." method="_on_button_server_settings_pressed"]
+[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonTimeDown" to="." method="_on_button_time_down_pressed"]
+[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonTimeUp" to="." method="_on_button_time_up_pressed"]
+[connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/ButtonApplyServerSettings" to="." method="_on_button_apply_server_settings_pressed"]

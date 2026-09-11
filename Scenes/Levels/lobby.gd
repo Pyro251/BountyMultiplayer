@@ -6,14 +6,13 @@ const LEVEL_1 = preload("uid://brujanmimtvi7")
 
 @onready var player_list: VBoxContainer = %VBoxContainer
 @onready var button_start_server: Button = $ButtonStartServer
-@onready var label_join_code: RichTextLabel = $LabelJoinCode
+@onready var label_join_code: Label = %LabelJoinCode
 
 var server_owned: bool = false
 
 func _ready() -> void:
-	#add_player_name(Global.username)
-	#
-	#Network.update_lobby_list.connect(add_player_name)
+	add_player_name(Global.username)
+	
 	
 	Global.update_lobby_usernames.rpc(Global.username)
 	
@@ -24,8 +23,12 @@ func _ready() -> void:
 	
 	if server_owned:
 		%ButtonStartServer.show()
+		%ServerSettingsServer.show()
+		%ServerSettingsClient.hide()
 	else:
 		%ButtonStartServer.hide()
+		%ServerSettingsServer.hide()
+		%ServerSettingsClient.show()
 	
 	#if not multiplayer.is_server():
 		#button_start_server.disabled = true
@@ -38,12 +41,13 @@ func _ready() -> void:
 	
 	Global.signal_session_info.connect(render_items)
 	Global.signal_update_lobby_usernames.connect(add_player_name)
+	Global.signal_apply_server_settings.connect(apply_server_settings)
 	
 	if get_multiplayer_authority() == 1:
 		button_start_server.disabled = false
 	
 	
-	label_join_code.text = str("Join Code:\n", Network.tube_client.session_id)
+	label_join_code.text = str("Join Code:", Network.tube_client.session_id)
 
 #@rpc("any_peer", "call_local")
 func add_player_name(username: String):
@@ -84,3 +88,29 @@ func _on_button_start_server_pressed() -> void:
 @rpc("authority", "call_local", "reliable")
 func hide_lobby_ui():
 	hide()
+
+func apply_server_settings(time):
+	Global.round_time = time
+	%LabelRoundTimeServer.text = str(Global.round_time)
+	%LabelRoundTimeClient.text = str(Global.round_time)
+
+func _on_button_copy_join_code_pressed() -> void:
+	DisplayServer.clipboard_set(Network.tube_client.session_id)
+
+
+func _on_button_server_settings_pressed() -> void:
+	%ServerSettingsAnimationPlayer.play("in")
+
+
+func _on_button_apply_server_settings_pressed() -> void:
+	Global.apply_server_settings.rpc(Global.round_time)
+
+
+func _on_button_time_down_pressed() -> void:
+	Global.round_time -= 1
+	%LabelRoundTimeServer.text = str(Global.round_time)
+
+
+func _on_button_time_up_pressed() -> void:
+	Global.round_time += 1
+	%LabelRoundTimeServer.text = str(Global.round_time)
