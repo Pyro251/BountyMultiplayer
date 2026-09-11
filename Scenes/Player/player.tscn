@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bko7yvep2w33" path="res://Scripts/player.gd" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://cssovl4mee1o4" path="res://Scenes/Menus/pause_menu.tscn" id="2_a3d8c"]
-[ext_resource type="FontFile" uid="uid://dndfik3argnf5" path="res://Assets/Fonts/Edge_of_the_galaxy/EdgeOfTheGalaxyRegular-OVEa6.otf" id="3_mtuoh"]
 [ext_resource type="PackedScene" uid="uid://dn4khtqiwyt3r" path="res://Assets/Shaders/vhs_color_rect.tscn" id="3_xpcdj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpcdj"]
@@ -25,22 +24,26 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tugb3"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Body:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Body/ProgressBarHealth:value")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Body:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Nameplate:text")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_a3d8c"]
 font_size = 30
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_s1fef"]
-font = ExtResource("3_mtuoh")
-font_size = 93
-shadow_size = 21
-shadow_color = Color(0, 0, 0, 0.13333334)
-
-[sub_resource type="LabelSettings" id="LabelSettings_htcer"]
-font = ExtResource("3_mtuoh")
-font_size = 93
-font_color = Color(0.8265686, 0.6423572, 0, 1)
-shadow_size = 21
-shadow_color = Color(0, 0, 0, 0.13333334)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1fef"]
 radius = 20.0
@@ -85,32 +88,6 @@ _data = {
 &"hurt": SubResource("Animation_mtuoh")
 }
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tugb3"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("Body:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("Body/ProgressBarHealth:value")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Body:visible")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("Nameplate:text")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("Nameplate:visible")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("EveryoneDeadUI/HBoxContainer/LabelTitleName:text")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath("Body/ProgressBarHealth:modulate")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-
 [node name="Player" type="CharacterBody2D" unique_id=222912360 groups=["Player", "Players"]]
 script = ExtResource("1_uvnfx")
 
@@ -154,6 +131,9 @@ offset_right = 3.0
 offset_bottom = 3.0
 color = Color(0, 0, 0, 1)
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1362596106]
+replication_config = SubResource("SceneReplicationConfig_tugb3")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=647726540]
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -177,7 +157,6 @@ label_settings = SubResource("LabelSettings_a3d8c")
 
 [node name="LabelUsernames" type="RichTextLabel" parent="UI" unique_id=320266639]
 unique_name_in_owner = true
-visible = false
 offset_left = 38.0
 offset_top = 95.0
 offset_right = 203.0
@@ -187,50 +166,7 @@ bbcode_enabled = true
 text = "Players:
 "
 
-[node name="EveryoneDeadUI" type="CanvasLayer" parent="." unique_id=234678696]
-unique_name_in_owner = true
-layer = 2
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="EveryoneDeadUI" unique_id=1926353708]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.13682586, 0.13682571, 0.13682568, 1)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EveryoneDeadUI" unique_id=879166389]
-unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -542.0
-offset_top = -50.0
-offset_right = 542.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 54
-alignment = 1
-
-[node name="LabelTitleName" type="Label" parent="EveryoneDeadUI/HBoxContainer" unique_id=1317897319]
-unique_name_in_owner = true
-layout_mode = 2
-text = "NAME"
-label_settings = SubResource("LabelSettings_s1fef")
-
-[node name="LabelTitle" type="Label" parent="EveryoneDeadUI/HBoxContainer" unique_id=1379856663]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5681974, 0.42908743, 0.1618644, 1)
-text = "WON"
-label_settings = SubResource("LabelSettings_htcer")
-
 [node name="VHSShader" type="CanvasLayer" parent="." unique_id=216002883]
-layer = 3
 
 [node name="BG" type="ColorRect" parent="VHSShader" unique_id=1865435200]
 visible = false
@@ -255,8 +191,5 @@ shape = SubResource("CircleShape2D_khhxn")
 
 [node name="AnimPlayerHurt" type="AnimationPlayer" parent="." unique_id=1195109882]
 libraries/ = SubResource("AnimationLibrary_htcer")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1362596106]
-replication_config = SubResource("SceneReplicationConfig_tugb3")
 
 [connection signal="area_entered" from="Area2DHitBox" to="." method="_on_area_2d_hit_box_area_entered"]

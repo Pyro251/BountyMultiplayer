@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "2D": 4436.934,
   "3D": 16.308,
   "AFK": 625.02,
@@ -13,4 +14,10 @@
   "Game": 3058.089,
   "Script": 7076.2
 >>>>>>> parent of 3032a9d (4: Add blur shader, lobby UI & round/money features)
+=======
+  "2D": 543.032,
+  "Asset Store": 10.299,
+  "Game": 717.087,
+  "Script": 2112.242
+>>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading)
 }

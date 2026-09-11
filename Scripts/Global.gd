@@ -2,10 +2,6 @@ extends Node
 
 signal update_cursor_visibility
 signal signal_session_info(new_info)
-signal signal_all_players_dead
-signal signal_player_won(username)
-signal signal_instanciate_level(level)
-signal erase_old_level
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -18,10 +14,6 @@ var username := ''
 
 # peer_id: {kills: 0, username: str}
 var session_info: Dictionary = { }
-
-var total_rounds: int
-var rounds_left: int
-var won_last_round: bool = false
 
 func _ready() -> void:
 	Network.tube_client.session_created.connect(set_up_name_list)
@@ -68,20 +60,7 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 	
 	spawn_container.add_child(new_bullet, true)
 	new_bullet.apply_central_impulse(shooting_dir * force)
-	print("shoot")
 
 @rpc("any_peer", "call_local", "reliable")
 func instanciate_players():
 	Network.signal_server_started.emit()
-
-@rpc("any_peer", "call_local", "reliable")
-func all_players_dead():
-	signal_all_players_dead.emit()
-
-@rpc("any_peer", "call_local", "reliable")
-func player_won(username: String):
-	signal_player_won.emit(username)
-
-@rpc("authority", "call_local", "reliable")
-func instanciate_level(level):
-	signal_instanciate_level.emit(level)
