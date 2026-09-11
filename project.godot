@@ -20,6 +20,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 Global="*uid://ck8lrtl5tn8jr"
 Network="*uid://cvddm5d6s7in8"
 GuiTransitions="*uid://lbwvyqfdnu7x"
+TileRunInstancesGlobal="*uid://b6fg6pu2bfi14"
 
 [display]
 
@@ -28,7 +29,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/project-time-tracker/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/tube/plugin.cfg")
+enabled=PackedStringArray("res://addons/project-time-tracker/plugin.cfg", "res://addons/simple-gui-transitions/plugin.cfg", "res://addons/tile-run-instances/plugin.cfg", "res://addons/tube/plugin.cfg")
 
 [file_customization]
 

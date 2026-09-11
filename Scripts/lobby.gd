@@ -16,15 +16,10 @@ func _ready() -> void:
 	#
 	#Network.update_lobby_list.connect(add_player_name)
 	
-<<<<<<< HEAD:Scripts/lobby.gd
 	
 	if !server_owned:
 		button_start_server.hide()
 		button_server_settings.hide()
-=======
-	if not multiplayer.is_server():
-		button_start_server.disabled = true
->>>>>>> parent of 8c35e5a (Add multiplayer round flow and level loading):Scenes/Levels/lobby.gd
 		button_start_server.text = "Waiting for Host..."
 	else:
 		button_start_server.show()

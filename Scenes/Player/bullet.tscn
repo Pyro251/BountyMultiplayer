@@ -10,20 +10,6 @@ size = Vector2(6, 10)
 radius = 5.0
 height = 16.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fxbbb"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("ColorRect:modulate")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("ColorRect:scale")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-
 [sub_resource type="Animation" id="Animation_l8742"]
 length = 0.001
 tracks/0/type = "value"
@@ -86,8 +72,9 @@ _data = {
 }
 
 [node name="Bullet" type="RigidBody2D" unique_id=752415312]
+z_index = 1
 position = Vector2(0, -5)
-mass = 0.2
+mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_eoc3h")
 
@@ -111,9 +98,6 @@ script = ExtResource("2_l8742")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" unique_id=1275548764]
 shape = SubResource("CapsuleShape2D_s1fef")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=193695441]
-replication_config = SubResource("SceneReplicationConfig_fxbbb")
 
 [node name="QueueFreeTimer" type="Timer" parent="." unique_id=835635748]
 wait_time = 10.0
