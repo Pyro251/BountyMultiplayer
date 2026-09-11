@@ -173,6 +173,8 @@ func die():
 	%UI.hide()
 	%Nameplate.hide()
 	
+	%LabelMoney.text = str(Global.money, "$")
+	
 	%RespawnUI.show()
 	
 	%CollisionShape2D.disabled = true
@@ -182,6 +184,8 @@ func die():
 	Global.money = 0
 
 func spawn():
+	position = Vector2(randf_range(-45, 45), randf_range(-45, 45))
+	
 	health = 100
 	progress_bar_health.value = health
 	
