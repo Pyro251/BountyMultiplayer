@@ -2,6 +2,7 @@ extends Node
 
 signal update_cursor_visibility
 signal signal_session_info(new_info)
+signal signal_update_lobby_usernames(username)
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
 
@@ -64,3 +65,7 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 @rpc("any_peer", "call_local", "reliable")
 func instanciate_players():
 	Network.signal_server_started.emit()
+
+@rpc("any_peer", "call_local", "reliable")
+func update_lobby_usernames(username):
+	signal_update_lobby_usernames.emit(username)

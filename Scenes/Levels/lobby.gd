@@ -15,9 +15,21 @@ func _ready() -> void:
 	#
 	#Network.update_lobby_list.connect(add_player_name)
 	
-	if not multiplayer.is_server():
-		button_start_server.disabled = true
-		button_start_server.text = "Waiting for Host..."
+	Global.update_lobby_usernames.rpc(Global.username)
+	
+	if multiplayer.get_unique_id() == 1:
+		server_owned = true
+	else:
+		server_owned = false
+	
+	if server_owned:
+		%ButtonStartServer.show()
+	else:
+		%ButtonStartServer.hide()
+	
+	#if not multiplayer.is_server():
+		#button_start_server.disabled = true
+		#button_start_server.text = "Waiting for Host..."
 	
 	if !get_multiplayer_authority() == 1:
 		set_process(false)
@@ -25,6 +37,7 @@ func _ready() -> void:
 		return
 	
 	Global.signal_session_info.connect(render_items)
+	Global.signal_update_lobby_usernames.connect(add_player_name)
 	
 	if get_multiplayer_authority() == 1:
 		button_start_server.disabled = false
