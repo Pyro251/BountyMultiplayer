@@ -24,6 +24,9 @@ var health: float = 100.0
 var desired_offset: Vector2
 var min_offset = -200
 var max_offset = 200
+var _shake_strength: float = 0.0
+var max_shake: float = 7.0
+var shake_fade: float = 10.0
 
 var in_lobby: bool = true
 var dead: bool = false
@@ -126,11 +129,20 @@ func _process(delta: float) -> void:
 		desired_offset.y = clamp(desired_offset.y, min_offset / 2.0, max_offset / 2.0)
 		
 		cam.global_position = global_position + desired_offset
+		
+		cam.global_position = global_position + desired_offset
+		if _shake_strength > 0:
+			_shake_strength = lerp(_shake_strength, 0.0, shake_fade * delta)
+			cam.offset = Vector2(randf_range(-_shake_strength, _shake_strength), randf_range(-_shake_strength, _shake_strength))
 	else:
 		cam.global_position = Vector2((get_window().size.x / 2), (get_window().size.y / 2))
+	
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
+
+func trigger_camera_shake() -> void:
+	_shake_strength = max_shake
 
 func update_cursor_visibility():
 	cursor.visible = !cursor.visible
@@ -167,6 +179,8 @@ func server_started():
 
 func die():
 	health = 100
+	
+	%ExplosionParticles.emitting = true
 	
 	%Body.hide()
 	%Cursor.hide()
@@ -225,6 +239,8 @@ func _on_area_2d_hit_box_area_entered(area: Area2D) -> void:
 			# Call signal before die function so that money resets after player killed signal is emitted
 			Global.player_killed.rpc_id(area.id, Global.money)
 			die()
+		
+		trigger_camera_shake()
 		
 		progress_bar_health.value = health
 		label_ammo.text = str("Ammo: ", ammo)

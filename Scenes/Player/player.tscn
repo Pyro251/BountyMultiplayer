@@ -85,6 +85,28 @@ radius = 20.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_khhxn"]
 radius = 31.016125
 
+[sub_resource type="Gradient" id="Gradient_htcer"]
+offsets = PackedFloat32Array(0.0046153846, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_htcer"]
+gradient = SubResource("Gradient_htcer")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g4v7s"]
+lifetime_randomness = 0.18
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 51.12
+initial_velocity_max = 101.1
+angular_velocity_min = -20.000015
+angular_velocity_max = 19.999983
+radial_velocity_min = 34.569977
+radial_velocity_max = 93.82998
+gravity = Vector3(0, 0, 0)
+scale_min = 7.54
+scale_max = 21.029999
+color_ramp = SubResource("GradientTexture1D_htcer")
+
 [sub_resource type="Animation" id="Animation_xpcdj"]
 length = 0.001
 tracks/0/type = "value"
@@ -147,6 +169,9 @@ properties/6/replication_mode = 1
 properties/7/path = NodePath("CollisionShape2D:disabled")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath("ExplosionParticles:emitting")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" unique_id=222912360 groups=["Player", "Players"]]
 script = ExtResource("1_uvnfx")
@@ -367,6 +392,17 @@ one_shot = true
 
 [node name="RoundTimer" type="Timer" parent="." unique_id=375793718]
 unique_name_in_owner = true
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="." unique_id=857978004]
+unique_name_in_owner = true
+emitting = false
+amount = 45
+lifetime = 0.63
+one_shot = true
+speed_scale = 1.45
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_g4v7s")
 
 [node name="AnimPlayerHurt" type="AnimationPlayer" parent="." unique_id=1195109882]
 libraries/ = SubResource("AnimationLibrary_htcer")
