@@ -464,6 +464,11 @@ layout_mode = 2
 text = "2"
 label_settings = SubResource("LabelSettings_57qmd")
 
+[node name="ButtonDone" type="Button" parent="ServerSettingsClient/MarginContainer/VBoxContainer" unique_id=770859990]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Done"
+
 [node name="VHSColorRect" parent="." unique_id=207397534 instance=ExtResource("3_v5hfa")]
 layout_mode = 1
 
@@ -482,3 +487,4 @@ libraries/ = SubResource("AnimationLibrary_ix16u")
 [connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonTimeDown" to="." method="_on_button_time_down_pressed"]
 [connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/HBoxContainer/ButtonTimeUp" to="." method="_on_button_time_up_pressed"]
 [connection signal="pressed" from="ServerSettingsServer/MarginContainer/VBoxContainer/ButtonApplyServerSettings" to="." method="_on_button_apply_server_settings_pressed"]
+[connection signal="pressed" from="ServerSettingsClient/MarginContainer/VBoxContainer/ButtonDone" to="." method="_on_button_done_pressed"]

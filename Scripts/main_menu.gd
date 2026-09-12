@@ -59,7 +59,9 @@ func add_lobby():
 	get_tree().current_scene.add_child(new_lobby)
 	hide()
 
-
+func back():
+	%JoinMenu.hide()
+	%CreateMenu.hide()
 
 func on_quit():
 	get_tree().quit()
@@ -69,3 +71,27 @@ func on_error_raised():
 	button_join_server.add_theme_color_override("font_disabled_color", Color.DARK_RED)
 	button_join_server.disabled = true
 	Network.clean_up_signals()
+
+
+func _on_button_open_join_menu_pressed() -> void:
+	%JoinMenu.show()
+
+
+func _on_button_open_create_menu_pressed() -> void:
+	%CreateMenu.show()
+
+
+func _on_button_back_join_pressed() -> void:
+	back()
+
+func _on_button_back_create_pressed() -> void:
+	back()
+
+
+func _on_line_edit_username_text_changed(new_text: String) -> void:
+	if new_text == "":
+		%ButtonOpenJoinMenu.disabled = true
+		%ButtonOpenCreateMenu.disabled = true
+	else:
+		%ButtonOpenJoinMenu.disabled = false
+		%ButtonOpenCreateMenu.disabled = false

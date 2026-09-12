@@ -44,6 +44,7 @@ func _ready():
 			cursor.visible = !in_lobby
 		position = Vector2(0.0, 0.0)
 	
+	
 	Network.signal_server_started.connect(server_started)
 	
 	nameplate.text = Global.username
@@ -83,16 +84,24 @@ func _ready():
 		set_physics_process(false)
 		return
 	
+	if multiplayer.is_server():
+		%ButtonStartNextRound.show()
+	else:
+		%ButtonStartNextRound.hide()
+	
 	Global.update_cursor_visibility.connect(update_cursor_visibility)
 	Global.signal_player_killed.connect(recieve_kill)
 	Global.signal_end_round.connect(round_ended)
 	Global.signal_player_won.connect(player_won)
 	Global.signal_update_highest_money.connect(update_highest_money)
+	Global.signal_start_next_round.connect(start_next_round)
 	
 	Network.update_username_list_signal.connect(update_username_list)
 	
 	label_ammo.text = str("Ammo: ", ammo)
 	%LabelMoney.text = str(Global.money, "$")
+	
+	%UI.hide()
 	
 	#cam.current = true
 
@@ -144,6 +153,25 @@ func _physics_process(delta: float) -> void:
 func trigger_camera_shake() -> void:
 	_shake_strength = max_shake
 
+func start_next_round(level):
+	Global.money = 0
+	
+	spawn()
+	
+	%WinningScreen.hide()
+	%WinningRing.hide()
+	
+	dead = false
+	
+	
+	position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+	
+	var level_to_load = str("res://Scenes/Levels/level", level, ".tscn")
+	var packed_scene: PackedScene = load(level_to_load)
+	var new_level = packed_scene.instantiate()
+	
+	get_tree().current_scene.add_child(new_level)
+
 func update_cursor_visibility():
 	cursor.visible = !cursor.visible
 
@@ -157,7 +185,7 @@ func shoot():
 	var pos = shoot_pos.global_position
 	var id = multiplayer.get_unique_id()
 	
-	Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
+	Global.server_recieve_shot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
 	
 	label_ammo.text = str("Ammo: ", ammo)
 
@@ -230,6 +258,9 @@ func recieve_kill(money):
 func round_ended():
 	if Global.money >= Global.highest_money:
 		Global.player_won.rpc(Global.username)
+	
+	if multiplayer.is_server():
+		%Cursor.show()
 
 func player_won(username):
 	%LabelWinningPlayer.text = username
@@ -264,3 +295,7 @@ func _on_respawn_timer_timeout() -> void:
 
 func _on_round_timer_timeout() -> void:
 	Global.end_round.rpc()
+
+
+func _on_button_start_next_round_pressed() -> void:
+	Global.start_next_round.rpc(randi_range(1, 2))

@@ -13,6 +13,17 @@ font_size = 121
 [sub_resource type="Theme" id="Theme_f2gx0"]
 default_font_size = 26
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 27
+
 [node name="MainMenu" type="CanvasLayer" unique_id=1412315135]
 script = ExtResource("1_38aua")
 
@@ -57,65 +68,161 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_f2gx0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI" unique_id=203149108]
+[node name="FirstLevelMenu" type="PanelContainer" parent="UI" unique_id=261500368]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -212.375
-offset_top = -53.5
-offset_right = 212.375
-offset_bottom = 245.5
+offset_left = -233.0
+offset_top = -80.0
+offset_right = 233.0
+offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
 
-[node name="LineEditUsername" type="LineEdit" parent="UI/VBoxContainer" unique_id=504743183]
+[node name="MarginContainer" type="MarginContainer" parent="UI/FirstLevelMenu" unique_id=2050288737]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/FirstLevelMenu/MarginContainer" unique_id=203149108]
+layout_mode = 2
+
+[node name="LineEditUsername" type="LineEdit" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=504743183]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Username"
 alignment = 1
 max_length = 20
 
-[node name="HSeparator" type="HSeparator" parent="UI/VBoxContainer" unique_id=772667804]
+[node name="HSeparator" type="HSeparator" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=772667804]
 layout_mode = 2
 theme_override_constants/separation = 17
 
-[node name="ButtonCreateServer" type="Button" parent="UI/VBoxContainer" unique_id=1042082632]
+[node name="ButtonOpenJoinMenu" type="Button" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=725080481]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
+text = "Join Server"
+
+[node name="ButtonOpenCreateMenu" type="Button" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=1449842254]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
 text = "Create Server"
 
-[node name="HSeparator2" type="HSeparator" parent="UI/VBoxContainer" unique_id=789604711]
+[node name="HSeparator2" type="HSeparator" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=789604711]
 layout_mode = 2
 theme_override_constants/separation = 17
 
-[node name="LineEditJoinCode" type="LineEdit" parent="UI/VBoxContainer" unique_id=1136617474]
+[node name="ButtonQuit" type="Button" parent="UI/FirstLevelMenu/MarginContainer/VBoxContainer" unique_id=734952594]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="JoinMenu" type="PanelContainer" parent="UI" unique_id=119424685]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.0
+offset_top = -80.0
+offset_right = 233.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/JoinMenu" unique_id=1966033683]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/JoinMenu/MarginContainer" unique_id=381761383]
+layout_mode = 2
+
+[node name="LineEditJoinCode" type="LineEdit" parent="UI/JoinMenu/MarginContainer/VBoxContainer" unique_id=1422935600]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Join Code"
 alignment = 1
 max_length = 13
 
-[node name="ButtonJoinServer" type="Button" parent="UI/VBoxContainer" unique_id=478346216]
+[node name="ButtonJoinServer" type="Button" parent="UI/JoinMenu/MarginContainer/VBoxContainer" unique_id=1399177488]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Join Server"
 
-[node name="HSeparator3" type="HSeparator" parent="UI/VBoxContainer" unique_id=604011780]
+[node name="HSeparator" type="HSeparator" parent="UI/JoinMenu/MarginContainer/VBoxContainer" unique_id=1988597302]
 layout_mode = 2
 theme_override_constants/separation = 17
 
-[node name="ButtonQuit" type="Button" parent="UI/VBoxContainer" unique_id=734952594]
+[node name="ButtonBackJoin" type="Button" parent="UI/JoinMenu/MarginContainer/VBoxContainer" unique_id=540832559]
+layout_mode = 2
+text = "Back"
+
+[node name="CreateMenu" type="PanelContainer" parent="UI" unique_id=1099073223]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -233.0
+offset_top = -80.0
+offset_right = 233.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CreateMenu" unique_id=874555987]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CreateMenu/MarginContainer" unique_id=300966405]
+layout_mode = 2
+
+[node name="ButtonCreateServer" type="Button" parent="UI/CreateMenu/MarginContainer/VBoxContainer" unique_id=1647121057]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Quit"
+text = "Create Server"
+
+[node name="HSeparator" type="HSeparator" parent="UI/CreateMenu/MarginContainer/VBoxContainer" unique_id=1804989778]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="ButtonBackCreate" type="Button" parent="UI/CreateMenu/MarginContainer/VBoxContainer" unique_id=295664886]
+layout_mode = 2
+text = "Back"
 
 [node name="VHSColorRect" parent="." unique_id=207397534 instance=ExtResource("2_pha2q")]
 
 [node name="GuiTransition" type="Node" parent="." unique_id=483167710]
 script = ExtResource("5_5wi6m")
 layout = NodePath("../UI")
-group = NodePath("../UI/VBoxContainer")
+group = NodePath("../UI/FirstLevelMenu/MarginContainer/VBoxContainer")
 metadata/_custom_type_script = "uid://bimelmc1ce1b2"
+
+[connection signal="text_changed" from="UI/FirstLevelMenu/MarginContainer/VBoxContainer/LineEditUsername" to="." method="_on_line_edit_username_text_changed"]
+[connection signal="pressed" from="UI/FirstLevelMenu/MarginContainer/VBoxContainer/ButtonOpenJoinMenu" to="." method="_on_button_open_join_menu_pressed"]
+[connection signal="pressed" from="UI/FirstLevelMenu/MarginContainer/VBoxContainer/ButtonOpenCreateMenu" to="." method="_on_button_open_create_menu_pressed"]
+[connection signal="pressed" from="UI/JoinMenu/MarginContainer/VBoxContainer/ButtonBackJoin" to="." method="_on_button_back_join_pressed"]
+[connection signal="pressed" from="UI/CreateMenu/MarginContainer/VBoxContainer/ButtonBackCreate" to="." method="_on_button_back_create_pressed"]

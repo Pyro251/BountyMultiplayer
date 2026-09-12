@@ -7,6 +7,8 @@ signal signal_apply_server_settings(time)
 signal signal_player_killed(money)
 signal signal_player_won(username)
 signal signal_update_highest_money(money)
+signal signal_start_next_round(level)
+signal signal_erase_old_level
 signal signal_end_round
 
 const BULLET = preload("uid://bl7bhv03mtmjk")
@@ -61,8 +63,15 @@ func get_player(peer_id: int) -> Player:
 	
 	return player_to_find
 
-@rpc("any_peer", "call_local")
-func shoot(id, pos, facing_dir, shooting_dir, force):
+@rpc("any_peer", "call_local", "reliable")
+func server_recieve_shot(id, pos, facing_dir, shooting_dir, force):
+	if not multiplayer.is_server():
+		return
+	
+	client_spawn_bullet.rpc(id, pos, facing_dir, shooting_dir, force)
+
+@rpc("any_peer", "call_local", "unreliable")
+func client_spawn_bullet(id, pos, facing_dir, shooting_dir, force):
 	var new_bullet: RigidBody2D = BULLET.instantiate()
 	
 	new_bullet.source = multiplayer.get_remote_sender_id()
@@ -70,7 +79,7 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 	new_bullet.global_rotation = facing_dir
 	new_bullet.id = id
 	
-	spawn_container.add_child(new_bullet, true)
+	get_tree().current_scene.add_child(new_bullet, true)
 	new_bullet.apply_central_impulse(shooting_dir * force)
 
 @rpc("any_peer", "call_local", "reliable")
@@ -100,3 +109,8 @@ func player_won(username):
 @rpc("any_peer", "call_local", "reliable")
 func update_highest_money(money: int):
 	signal_update_highest_money.emit(money)
+
+@rpc("authority", "call_local", "reliable")
+func start_next_round(level):
+	signal_erase_old_level.emit()
+	signal_start_next_round.emit(level)

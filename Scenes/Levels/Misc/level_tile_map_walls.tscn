@@ -1,20 +1,17 @@
 [gd_scene format=3 uid="uid://cqchx7g05k7ik"]
 
-[ext_resource type="Texture2D" uid="uid://decbjcgqj3w4y" path="res://Assets/Tilesets/SimpleWall/Wall-1.png.png" id="1_tj852"]
+[ext_resource type="Texture2D" uid="uid://eb3fj5d1757a" path="res://Assets/Tilesets/SimpleWall/Wall64x64-1.png.png" id="1_tj852"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tkgdh"]
 texture = ExtResource("1_tj852")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [sub_resource type="TileSet" id="TileSet_2lais"]
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_tkgdh")
+sources/1 = SubResource("TileSetAtlasSource_tkgdh")
 
 [node name="LevelTileMapWalls" type="TileMapLayer" unique_id=1827976408]
 tile_set = SubResource("TileSet_2lais")

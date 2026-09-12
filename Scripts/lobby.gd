@@ -72,9 +72,13 @@ func render_items(new_info: Dictionary):
 	#get_tree().current_scene.add_child(new_player)
 
 @rpc("authority", "call_local", "reliable")
-func add_level():
+func add_level(level):
 	# Instanciates the world
-	var new_level = LEVEL_1.instantiate()
+	
+	var level_to_load = str("res://Scenes/Levels/level", level, ".tscn")
+	var packed_scene: PackedScene = load(level_to_load)
+	var new_level = packed_scene.instantiate()
+	
 	get_tree().current_scene.add_child(new_level)
 
 @rpc("authority", "call_local")
@@ -83,7 +87,7 @@ func _on_button_start_server_pressed() -> void:
 		return
 	
 	hide_lobby_ui.rpc()
-	add_level.rpc()
+	add_level.rpc(randi_range(1, 2))
 	Global.instanciate_players.rpc()
 
 @rpc("authority", "call_local", "reliable")
@@ -115,3 +119,7 @@ func _on_button_time_down_pressed() -> void:
 func _on_button_time_up_pressed() -> void:
 	Global.round_time += 1
 	%LabelRoundTimeServer.text = str(Global.round_time)
+
+
+func _on_button_done_pressed() -> void:
+	%ServerSettingsAnimationPlayer.play("out")
