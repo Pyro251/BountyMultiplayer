@@ -66,7 +66,7 @@ func shoot(id, pos, facing_dir, shooting_dir, force):
 	var new_bullet: RigidBody2D = BULLET.instantiate()
 	
 	new_bullet.source = multiplayer.get_remote_sender_id()
-	new_bullet.position = pos
+	new_bullet.global_position = pos
 	new_bullet.global_rotation = facing_dir
 	new_bullet.id = id
 	

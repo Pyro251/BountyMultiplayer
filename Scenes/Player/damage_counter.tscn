@@ -34,6 +34,11 @@ gravity = Vector3(0, 500, 0)
 scale_max = 1.5
 color_ramp = SubResource("GradientTexture1D_ba2hn")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0a51r"]
+properties/0/path = NodePath("GPUParticles2D:emitting")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="DamageCounter" type="Node2D" unique_id=1984679700]
 z_index = 134
 script = ExtResource("1_auxm8")
@@ -61,3 +66,6 @@ speed_scale = 1.5
 explosiveness = 1.0
 randomness = 0.56
 process_material = SubResource("ParticleProcessMaterial_ba2hn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1262455486]
+replication_config = SubResource("SceneReplicationConfig_0a51r")

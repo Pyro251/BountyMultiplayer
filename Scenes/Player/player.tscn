@@ -26,6 +26,20 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8509804, 0.6117647, 0.14509805, 0.45882353)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.6673966, 0.50452757, 0.08826167, 0.25882354)
+shadow_size = 4
+
 [sub_resource type="LabelSettings" id="LabelSettings_a3d8c"]
 font_size = 30
 font_color = Color(0, 0, 0, 1)
@@ -153,25 +167,28 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 properties/2/path = NodePath("Body/ProgressBarHealth:value")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath("Body:visible")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath("Nameplate:text")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
 properties/5/path = NodePath("Body/ProgressBarHealth:modulate")
 properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/5/replication_mode = 2
 properties/6/path = NodePath("Nameplate:visible")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 properties/7/path = NodePath("CollisionShape2D:disabled")
 properties/7/spawn = true
-properties/7/replication_mode = 1
+properties/7/replication_mode = 2
 properties/8/path = NodePath("ExplosionParticles:emitting")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 2
+properties/9/path = NodePath("Body/WinningRing:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D" unique_id=222912360 groups=["Player", "Players"]]
 script = ExtResource("1_uvnfx")
@@ -203,6 +220,16 @@ show_percentage = false
 [node name="ShootPos" type="Marker2D" parent="Body" unique_id=1911338719]
 unique_name_in_owner = true
 position = Vector2(47, 0)
+
+[node name="WinningRing" type="Panel" parent="Body" unique_id=1190694728]
+unique_name_in_owner = true
+visible = false
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 24.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yf5fn")
 
 [node name="Cursor" type="Node2D" parent="." unique_id=69504904]
 unique_name_in_owner = true
@@ -408,6 +435,8 @@ process_material = SubResource("ParticleProcessMaterial_g4v7s")
 libraries/ = SubResource("AnimationLibrary_htcer")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1362596106]
+replication_interval = 0.02
+delta_interval = 0.02
 replication_config = SubResource("SceneReplicationConfig_tugb3")
 
 [connection signal="area_entered" from="Area2DHitBox" to="." method="_on_area_2d_hit_box_area_entered"]

@@ -100,7 +100,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_223da"]
 resource_name = "in"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -468,6 +468,7 @@ label_settings = SubResource("LabelSettings_57qmd")
 layout_mode = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1400397074]
+replication_interval = 0.5
 replication_config = SubResource("SceneReplicationConfig_jqpmk")
 
 [node name="ServerSettingsAnimationPlayer" type="AnimationPlayer" parent="." unique_id=262669195]

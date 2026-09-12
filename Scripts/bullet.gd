@@ -8,7 +8,7 @@ var id: int
 func _ready() -> void:
 	anims.play("in")
 	
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(2).timeout
 	
 	queue_free()
 

@@ -157,7 +157,7 @@ func shoot():
 	var pos = shoot_pos.global_position
 	var id = multiplayer.get_unique_id()
 	
-	Global.shoot.rpc(id, pos, facing_dir, shooting_dir, force)
+	Global.shoot.rpc_id(1, id, pos, facing_dir, shooting_dir, force)
 	
 	label_ammo.text = str("Ammo: ", ammo)
 
@@ -179,6 +179,11 @@ func server_started():
 
 func die():
 	health = 100
+	
+	if Global.money >= Global.highest_money:
+		%WinningRing.show()
+	else:
+		%WinningRing.hide()
 	
 	%ExplosionParticles.emitting = true
 	
@@ -218,6 +223,9 @@ func recieve_kill(money):
 	if Global.money >= Global.highest_money:
 		Global.highest_money = Global.money
 		Global.update_highest_money.rpc(Global.highest_money)
+		%WinningRing.show()
+	else:
+		%WinningRing.hide()
 
 func round_ended():
 	if Global.money >= Global.highest_money:
