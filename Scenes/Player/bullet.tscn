@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://dtb7mriocgnbf" path="res://Scripts/bullet.gd" id="1_eoc3h"]
 [ext_resource type="Script" uid="uid://c4ao2y2oxew4q" path="res://Scripts/hit_box.gd" id="2_l8742"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1fef"]
-size = Vector2(6, 10)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_htcer"]
+radius = 3.0
+height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1fef"]
 radius = 5.0
@@ -102,7 +103,7 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1227554006]
-shape = SubResource("RectangleShape2D_s1fef")
+shape = SubResource("CapsuleShape2D_htcer")
 
 [node name="HitArea" type="Area2D" parent="." unique_id=979795071 groups=["Bullet"]]
 collision_layer = 2
